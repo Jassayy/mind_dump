@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 MindDump — Journal Your Thoughts, Track Your Mood
 
-## Getting Started
+MindDump is a full-stack journaling and venting application where users can freely **dump their thoughts** via text or voice.  
+Based on entries, the app **stores mood patterns** and offers **AI-generated suggestions** for emotional well-being.
 
-First, run the development server:
+This project is built from scratch to deeply learn modern full-stack development concepts including authentication, secure backend APIs, database modeling, and deployment 🌱
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🔐 Secure authentication using **JWT** with HTTP-Only Cookies  
+- 🛡 Route protection using Next.js Middleware  
+- 🗄 Robust database powered by **NeonDB (PostgreSQL) + Prisma**  
+- ✍️ Create and save personal mind-dump entries  
+- 😊 Automated mood tracking (coming soon)  
+- 🤖 AI-powered emotional support & coping suggestions (coming soon)  
+- 🎤 Voice input support (coming soon)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🏗 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js (App Router) |
+| Database | NeonDB (PostgreSQL) |
+| ORM | Prisma |
+| Auth | JSON Web Tokens (JWT) + bcryptjs |
+| Language | TypeScript |
+| UI | React / Future UI upgrades |
+| Deployment | Vercel (planned) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📂 Project Structure
 
-## Deploy on Vercel
+minddump/
+├─ app/
+│ ├─ api/
+│ │ ├─ auth/
+│ │ │ ├─ signup/route.ts
+│ │ │ ├─ login/route.ts
+│ ├─ (UI pages coming soon)
+│
+├─ prisma/
+│ ├─ schema.prisma
+│
+├─ .env
+├─ package.json
+├─ README.md
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the repository
+```sh
+git clone https://github.com/<your-username>/minddump.git
+cd minddump
+
+---
+
+npm install
+# or yarn install
+# or pnpm install
+
+---
