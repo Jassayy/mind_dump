@@ -1,55 +1,52 @@
-import { prisma } from "@/app/lib/prisma";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-
-
-
-
+import { prisma } from "@/app/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, password } = await req.json();
+    const { email, password } = await req.json();
 
-    if (!name || !email || !password) {
+    if (!email || !password) {
       return NextResponse.json(
         {
-          error: "Name,email & password are required.",
+          error: "Email and password are required",
         },
-        {
-          status: 400,
-        }
+        { status: 400 }
       );
     }
 
     //check if user exists or no
-    const existingUser = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email },
     });
 
-    if (existingUser) {
+    if (!user) {
       return NextResponse.json(
         {
-          error: "User already exists",
+          error: "User does not exist. Try signing up first",
         },
         {
-          status: 400,
+          status: 401,
         }
       );
     }
 
-    //hash user password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    //password match
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
-    //create user
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-      },
-    });
+    if (!passwordMatch) {
+      return NextResponse.json(
+        {
+          error: "Invalid password",
+        },
+        {
+          status: 401,
+        }
+      );
+    }
 
+    //generate token
     const token = jwt.sign(
       {
         id: user.id,
@@ -63,7 +60,7 @@ export async function POST(req: NextRequest) {
 
     const response = NextResponse.json(
       {
-        message: "User created successfully",
+        message: "Login successful",
         user: {
           id: user.id,
           name: user.name,
@@ -71,23 +68,23 @@ export async function POST(req: NextRequest) {
         },
       },
       {
-        status: 201,
+        status: 200,
       }
     );
-
+    // Set Cookie
     response.cookies.set("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production", // HTTPS in prod
       sameSite: "strict",
       path: "/",
     });
 
     return response;
   } catch (error) {
-    console.error("Signup Error", error);
+    console.error("Login error", error);
     return NextResponse.json(
       {
-        error: "Internal Server Error",
+        error: "Error logging in",
       },
       {
         status: 400,
