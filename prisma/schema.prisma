@@ -12,15 +12,16 @@ model User{
   email      String     @unique
   password   String     
   createdAt  DateTime   @default(now())
-  entry      Entry[]
+  entry      Dumps[]
 }
 
 
-model Entry{
+model Dumps{
   id         String    @id   @default(uuid())
-  text       String  
+  content    String  
   mood       String?
   createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   user       User      @relation(fields: [userId], references: [id])
   userId     String
 }
