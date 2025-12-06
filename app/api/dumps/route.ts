@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { checkAuth } from "../helpers/auth";
 import { prisma } from "@/app/lib/prisma";
 
-export async function GET(req: NextRequest, context: any) {
+export async function GET(req: NextRequest) {
   try {
     const user = checkAuth(req);
     if (!user) {

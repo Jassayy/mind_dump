@@ -1,4 +1,6 @@
 "use client";
+import Calender from "@/components/dashboard/Calender";
+import Dumps from "@/components/dashboard/Dumps";
 import { redirect } from "next/navigation";
 
 const DashboardPage = () => {
@@ -12,9 +14,12 @@ const DashboardPage = () => {
       redirect("/login");
     }
   };
+
   return (
     <div>
       Dashboard page
+      <Calender />
+      <Dumps />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
