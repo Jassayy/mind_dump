@@ -111,8 +111,8 @@ export default function MoodCalendar() {
 
                {/* Modal */}
                {selectedDay && (
-                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center p-4 z-[9999]">
-                         <div className="relative bg-white z-[10000] dark:bg-zinc-900 rounded-xl shadow-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto p-6 border border-zinc-200 dark:border-zinc-700">
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center p-4 z-9999">
+                         <div className="relative bg-white z-10000 dark:bg-zinc-900 rounded-xl shadow-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto p-6 border border-zinc-200 dark:border-zinc-700">
                               {/* Close button */}
                               <button
                                    className="absolute top-3 right-3 text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-xs"
