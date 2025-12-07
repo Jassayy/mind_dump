@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { checkAuth } from "../../helpers/auth";
 import { prisma } from "@/app/lib/prisma";
 import { getMoodEmoji } from "@/lib/mood-emoji";
+import { redis } from "@/lib/redis";
 
 export async function GET(req: NextRequest) {
   try {
@@ -26,6 +27,18 @@ export async function GET(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    const cacheKey = `mood-calendar:${user.id}:${month}`;
+
+    //find this cache key in redis
+    const cachedData = await redis.get(cacheKey);
+
+    if (cachedData) {
+      console.log("Redis Cache Hit");
+      return NextResponse.json(cachedData);
+    }
+
+    console.log("data base query");
 
     const startOfMonth = new Date(`${month}-01`);
     const endOfMonth = new Date(startOfMonth);
@@ -67,11 +80,13 @@ export async function GET(req: NextRequest) {
       }
 
       const dominantMood =
-        Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] ??
-        "neutral";
+        Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "neutral";
 
       result[date].emoji = getMoodEmoji(dominantMood);
     }
+
+    //save this data in redis
+    await redis.set(cacheKey, result, { ex: 3600 });
 
     return NextResponse.json(result);
   } catch (error) {

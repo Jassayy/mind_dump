@@ -48,7 +48,7 @@ const Dumps = ({ searchQuery = "" }: DumpsProps) => {
           credentials: "include",
         });
         const data = await res.json();
-        
+
         if (data.dumps && data.dumps.length > 0) {
           allDumpsData.push(...data.dumps);
           currentPage++;
@@ -93,7 +93,10 @@ const Dumps = ({ searchQuery = "" }: DumpsProps) => {
 
   // Update total pages based on filtered results
   useEffect(() => {
-    const newTotalPages = Math.max(1, Math.ceil(filteredDumps.length / itemsPerPage));
+    const newTotalPages = Math.max(
+      1,
+      Math.ceil(filteredDumps.length / itemsPerPage)
+    );
     setTotalPages(newTotalPages);
     // Reset to first page when search changes
     setPage(1);
@@ -102,7 +105,10 @@ const Dumps = ({ searchQuery = "" }: DumpsProps) => {
   const stripHtml = (html: string) => {
     if (typeof window === "undefined") {
       // Server-side: simple regex to remove HTML tags
-      return html.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
+      return html
+        .replace(/<[^>]*>/g, "")
+        .replace(/&nbsp;/g, " ")
+        .trim();
     }
     const tmp = document.createElement("DIV");
     tmp.innerHTML = html;
@@ -134,10 +140,11 @@ const Dumps = ({ searchQuery = "" }: DumpsProps) => {
               <TableBody>
                 {paginatedDumps.map((dump) => {
                   const plainContent = stripHtml(dump.content);
-                  const preview = plainContent.length > 100 
-                    ? plainContent.substring(0, 100) + "..." 
-                    : plainContent;
-                  
+                  const preview =
+                    plainContent.length > 100
+                      ? plainContent.substring(0, 100) + "..."
+                      : plainContent;
+
                   return (
                     <TableRow
                       key={dump.id}
@@ -145,12 +152,10 @@ const Dumps = ({ searchQuery = "" }: DumpsProps) => {
                       onClick={() => router.push(`/dashboard/dumps/${dump.id}`)}
                     >
                       <TableCell className="font-medium">
-                        <div className="max-w-md">
-                          {preview}
-                        </div>
+                        <div className="max-w-md">{preview}</div>
                       </TableCell>
                       <TableCell>
-                        <span className="text-xs bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 px-2.5 py-1 rounded-full font-medium text-lg">
+                        <span className="text-xs bg-linear-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 px-2.5 py-1 rounded-full font-medium">
                           {getMoodEmoji(dump.mood)}
                         </span>
                       </TableCell>
@@ -181,7 +186,8 @@ const Dumps = ({ searchQuery = "" }: DumpsProps) => {
           {/* Pagination */}
           <div className="flex items-center justify-between mt-6 pt-6 border-t border-zinc-200 dark:border-zinc-800">
             <div className="text-sm text-zinc-600 dark:text-zinc-400">
-              Page {page} of {totalPages || 1} • {filteredDumps.length} dump{filteredDumps.length !== 1 ? 's' : ''} found
+              Page {page} of {totalPages || 1} • {filteredDumps.length} dump
+              {filteredDumps.length !== 1 ? "s" : ""} found
             </div>
             <div className="flex items-center gap-2">
               <Button
