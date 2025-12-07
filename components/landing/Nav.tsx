@@ -27,6 +27,14 @@ const Nav = () => {
             Login
           </Button>
         </Link>
+        <Link href="/signup">
+          <Button
+            size="sm"
+            className="rounded-full hover:scale-105 hover:cursor-pointer"
+          >
+            Signup
+          </Button>
+        </Link>
       </div>
 
       {/* Mobile Menu (will add functionality later) */}
