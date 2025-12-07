@@ -26,7 +26,7 @@ This project is built from scratch to deeply learn modern full-stack development
 | Framework | Next.js (App Router) |
 | Database | NeonDB (PostgreSQL) |
 | ORM | Prisma |
-| Redis Cache |
+| Redis | Cache |
 | Auth | JSON Web Tokens (JWT) + bcryptjs |
 | Language | TypeScript |
 | UI | React / Future UI upgrades |
