@@ -13,9 +13,9 @@ This project is built from scratch to deeply learn modern full-stack development
 - 🛡 Route protection using Next.js Middleware  
 - 🗄 Robust database powered by **NeonDB (PostgreSQL) + Prisma**  
 - ✍️ Create and save personal mind-dump entries  
-- 😊 Automated mood tracking (coming soon)  
-- 🤖 AI-powered emotional support & coping suggestions (coming soon)  
-- 🎤 Voice input support (coming soon)
+- 😊 Automated mood tracking   
+- 🤖 AI-powered emotional support & coping suggestions with AI Assistant  
+- 🎤 Voice input support
 
 ---
 
@@ -26,30 +26,11 @@ This project is built from scratch to deeply learn modern full-stack development
 | Framework | Next.js (App Router) |
 | Database | NeonDB (PostgreSQL) |
 | ORM | Prisma |
+| Redis Cache |
 | Auth | JSON Web Tokens (JWT) + bcryptjs |
 | Language | TypeScript |
 | UI | React / Future UI upgrades |
-| Deployment | Vercel (planned) |
-
----
-
-## 📂 Project Structure
-
-minddump/
-├─ app/
-│ ├─ api/
-│ │ ├─ auth/
-│ │ │ ├─ signup/route.ts
-│ │ │ ├─ login/route.ts
-│ ├─ (UI pages coming soon)
-│
-├─ prisma/
-│ ├─ schema.prisma
-│
-├─ .env
-├─ package.json
-├─ README.md
-
+| Deployment | Vercel or AWS(planned) |
 
 
 ---
@@ -60,11 +41,11 @@ minddump/
 ```sh
 git clone https://github.com/<your-username>/minddump.git
 cd minddump
+```
 
----
-
-npm install
-# or yarn install
-# or pnpm install
-
----
+## Install dependencies
+```sh
+npm install 
+or
+yarn install
+```
