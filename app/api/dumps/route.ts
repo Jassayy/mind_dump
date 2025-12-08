@@ -1,3 +1,7 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
 //this file is made for fetching all the dumps the user has saved
 
 import { NextRequest, NextResponse } from "next/server";
