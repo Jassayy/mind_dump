@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
 
 import { checkAuth } from "../../helpers/auth";
+import { redis } from "@/lib/redis";
+import { revalidatePath } from "next/cache";
 
 export async function PATCH(req: NextRequest, context: any) {
   //export async function METHOD(req: NextRequest, context: { params: Promise<any> })
@@ -57,6 +59,13 @@ export async function PATCH(req: NextRequest, context: any) {
         content,
       },
     });
+
+    //update redis cache after deleting
+    const pattern = `dumps:${user.id}:*`;
+    const keys = await redis.keys(pattern);
+    if (keys.length > 0) await redis.del(...keys);
+
+    revalidatePath("/dashboard");
 
     return NextResponse.json(
       {
@@ -119,6 +128,11 @@ export async function DELETE(req: NextRequest, context: any) {
         id: dumpId,
       },
     });
+
+    const pattern = `dumps:${user.id}:*`;
+    const keys = await redis.keys(pattern);
+    if (keys.length > 0) await redis.del(...keys);
+    revalidatePath("/dashboard");
 
     return NextResponse.json(
       {
